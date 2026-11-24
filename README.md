@@ -1,5 +1,7 @@
 # Calm Slate (Obsidian + Google Antigravity)
 
+> **New to Obsidian or AI tools?** Start with the plain-English **[Beginner's Start-to-Finish Guide](BEGINNER_GUIDE.md)** (includes important privacy warnings and step-by-step checklists).
+
 A ready-to-use, local-first personal knowledge and daily executive system built on **Obsidian** and **Google Antigravity**.
 
 Everything lives in plain Markdown files on your own device (synced with OneDrive, iCloud, Dropbox, or Obsidian Sync). Your AI assistant remembers your projects, plans, rules, and preferences inside `06_Metadata/Gemini/` so you never have to re-explain your life every time you open a new chat.
