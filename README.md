@@ -13,13 +13,14 @@ During installation, you can pick either kit (and you can always upgrade from Co
 | Feature | Core Kit *(Recommended for Beginners)* | Full Kit *(Power-Up Bundle)* |
 | :--- | :---: | :---: |
 | **Obsidian PARA Vault** (`Inbox`, `Projects`, `Areas`, `Resources`, `Archive`) | Yes | Yes |
+| **Granola Meeting Notes & Auto-Sync Plugin** (Free plan, auto-syncs to `00_Inbox/Granola/`) | **Yes** | **Yes** |
 | **Persistent AI Memory** (`06_Metadata/Gemini/` + `Brain_Cockpit.md`) | Yes | Yes |
 | **5-Minute AI Setup Interview** (`/onboard`) | Yes | Yes |
-| **12 Everyday Skills** (Morning Plan, Daily Review, Task Breakdown, Inbox, De-AI, etc.) | Yes | Yes |
+| **12 Everyday Skills** (Morning Plan, Daily Review, Action Extractor, Task Breakdown, Inbox, De-AI, etc.) | Yes | Yes |
 | **Calm Slate Low-Glare Dark Theme** (Anti-glare, cognitive-friendly) | Yes | Yes |
-| **Zero Python / Zero Extra Accounts Needed** | **Yes** | Optional Python venv |
+| **Zero Python / Zero Paid Subscriptions Needed** | **Yes** | Optional Python venv |
 | **12 Extended Skills** (Premortem, Slide Decks, Financial Audit, Privacy, Study Coach, etc.) | - | **Yes** |
-| **Optional Sync Add-Ons** (Outlook/Google Calendar ICS, Granola Meetings, Google Tasks, YNAB) | - | **Yes** |
+| **Optional Sync Add-Ons** (Outlook/Google Calendar ICS, Android/CLI Granola Sync, Google Tasks, YNAB) | - | **Yes** |
 | **Android Tablet & Phone Pack + Wallpapers** (Termux widgets, Share Sheet, 5 matching wallpapers & theme guide) | - | **Yes** |
 
 ---
@@ -50,14 +51,14 @@ curl -fsSL https://raw.githubusercontent.com/scissorsmc-blip/calm-slate/main/ins
 
 Prefer not to run any terminal commands (or using a locked-down work PC)? You can set up the **Core Kit** in 3 clicks:
 
-1. Download and install **[Obsidian](https://obsidian.md)** (free).
-2. Download and install **[Google Antigravity](https://antigravity.google)** (sign in with your Google account).
-3. On this GitHub page, click the green **`<> Code`** button -> **Download ZIP**:
+1. Download and install **[Obsidian](https://obsidian.md)** (free), **[Google Antigravity](https://antigravity.google)**, and **[Granola](https://www.granola.ai)** (free AI meeting notepad).
+2. On this GitHub page, click the green **`<> Code`** button -> **Download ZIP**:
    * Unzip the download.
    * Move the **`core-kit`** folder into your **OneDrive**, **iCloud**, or **Documents** folder and rename it **`CalmSlate`**.
    * *(Optional Full Kit)*: Copy everything inside `full-kit-addons/` into that same `CalmSlate` folder.
-   * Open **Obsidian** -> **Open folder as vault** -> pick `CalmSlate`.
-   * Open **Google Antigravity** -> **Open Folder** -> pick `CalmSlate`.
+3. Open **Obsidian** -> **Open folder as vault** -> pick `CalmSlate`:
+   * Go to **Settings > Community Plugins** -> **Turn on community plugins** -> **Browse** -> install & enable **`Granola Meetings Simple Sync`** (your pre-configured template and `00_Inbox/Granola` folder load automatically) -> click **Sign In with Granola**.
+4. Open **Google Antigravity** -> **Open Folder** -> pick `CalmSlate`.
 
 Because `.agents/rules/AGENTS.md` and `.agents/skills/` live inside the vault, Antigravity automatically loads your rules and skills the moment you open the folder.
 

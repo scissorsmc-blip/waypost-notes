@@ -93,11 +93,19 @@ if [ "$SKIP_APP_INSTALL" != "1" ]; then
     echo "[*] Checking/installing Google Antigravity via Homebrew..."
     brew list --cask antigravity >/dev/null 2>&1 || brew install --cask antigravity
     echo "[+] Google Antigravity ready."
+
+    echo "[*] Checking/installing Granola (AI meeting notepad) via Homebrew..."
+    if brew list --cask granola >/dev/null 2>&1 || brew install --cask granola; then
+      echo "[+] Granola ready."
+    else
+      echo "[i] Download free Granola from: https://www.granola.ai"
+    fi
   else
     echo "[i] Homebrew is not installed on this Mac (totally fine!)."
-    echo "    Download and drag these two free apps into Applications:"
+    echo "    Download and drag these free apps into Applications:"
     echo "      1. Obsidian:           https://obsidian.md"
     echo "      2. Google Antigravity: https://antigravity.google"
+    echo "      3. Granola (meetings): https://www.granola.ai"
     read -rp "Press Enter to continue creating your vault now..."
   fi
 fi
@@ -144,6 +152,17 @@ cp "$VAULT_PATH/AGENTS.md" "$GLOBAL_PLUGIN/rules/AGENTS.md"
 cp -R "$VAULT_PATH/06_Metadata/Gemini/Skills/"* "$VAULT_PATH/.agents/skills/"
 cp -R "$VAULT_PATH/06_Metadata/Gemini/Skills/"* "$GLOBAL_PLUGIN/skills/"
 echo "[+] Linked AGENTS.md and all skills into workspace and Antigravity."
+
+# Download official Granola Meetings Simple Sync plugin (free Granola MCP sync)
+GRANOLA_DIR="$VAULT_PATH/.obsidian/plugins/granola-meetings-simple-sync"
+mkdir -p "$GRANOLA_DIR"
+GRANOLA_BASE="https://github.com/philfreo/obsidian-granola-plugin/releases/latest/download"
+if curl -fsSL "$GRANOLA_BASE/manifest.json" -o "$GRANOLA_DIR/manifest.json" \
+  && curl -fsSL "$GRANOLA_BASE/main.js" -o "$GRANOLA_DIR/main.js"; then
+  echo "[+] Installed official Granola Meetings Simple Sync plugin (pre-configured for 00_Inbox/Granola)."
+else
+  echo "[i] Inside Obsidian: Settings > Community Plugins > Browse > install 'Granola Meetings Simple Sync'."
+fi
 
 # Auto-register vault in Obsidian's obsidian.json on macOS
 if command -v python3 >/dev/null 2>&1; then

@@ -12,7 +12,8 @@ This vault uses the **PARA** framework:
 
 * `00_Inbox/`: Daily capture buffer.
   * `Daily Notes/`: Active daily logs (`YYYY-MM-DD.md`). Archived weekly to `04_Archive/Daily Log/YYYY/MM/`.
-  * `Meetings/`: Meeting notes and transcripts.
+  * `Granola/`: **Permanent home for all Granola meeting notes** (notes containing `granola_id:`). Never move Granola notes out of this folder.
+  * `Meetings/`: Manual meeting notes.
 * `01_Projects/`: Discrete goals with a target completion date.
 * `02_Areas/`: Ongoing domains of responsibility (customized during `/onboard`, e.g., `Work/`, `Personal & Health/`, `Finance & Admin/`).
 * `03_Resources/`: Evergreen reference materials, guides, and clippings.

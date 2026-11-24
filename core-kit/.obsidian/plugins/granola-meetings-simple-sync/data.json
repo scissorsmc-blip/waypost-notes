@@ -1,0 +1,18 @@
+{
+  "folderPath": "00_Inbox/Granola",
+  "filenamePattern": "{date} {title}",
+  "templatePath": "06_Metadata/Templates/Granola Template.md",
+  "syncFrequency": "15m",
+  "showRibbonIcon": true,
+  "skipExistingNotes": true,
+  "matchAttendeesByEmail": true,
+  "excludeSelfFromAttendees": true,
+  "syncTimeRange": "last_30_days",
+  "includeTranscripts": false,
+  "downloadImages": true,
+  "imageFolder": "./Attachments",
+  "durationStyle": "compact",
+  "granolaApiKey": "",
+  "onlyMyMeetings": false,
+  "accounts": []
+}

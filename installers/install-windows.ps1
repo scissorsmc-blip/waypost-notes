@@ -61,8 +61,8 @@ Write-Host ""
 if (-not $Kit) {
     Write-Host "Choose which kit to install:" -ForegroundColor Yellow
     Write-Host "  [1] Core Kit (Recommended for Beginners)"
-    Write-Host "      - Obsidian + Google Antigravity + PARA vault + AI memory + 12 everyday skills"
-    Write-Host "      - Low-glare Calm Slate dark theme included. No extra accounts or Python needed."
+    Write-Host "      - Obsidian + Google Antigravity + Granola meeting auto-sync + PARA vault"
+    Write-Host "      - AI memory + 12 everyday skills + Calm Slate dark theme. Zero Python needed."
     Write-Host ""
     Write-Host "  [2] Full Kit (Power-Up Bundle)"
     Write-Host "      - Everything in Core Kit PLUS 12 extended skills and optional add-on scripts"
@@ -100,11 +100,20 @@ if (-not $SkipAppInstall) {
         Write-Host "[*] Checking/installing Google Antigravity..."
         winget install --id Google.Antigravity -e --accept-source-agreements --accept-package-agreements --silent | Out-Null
         Write-Host "[+] Google Antigravity ready." -ForegroundColor Green
+
+        Write-Host "[*] Checking/installing Granola (AI meeting notepad)..."
+        try {
+            winget install --name "Granola" --accept-source-agreements --accept-package-agreements --silent | Out-Null
+            Write-Host "[+] Granola ready." -ForegroundColor Green
+        } catch {
+            Write-Host "[i] Download free Granola desktop app from: https://www.granola.ai" -ForegroundColor Yellow
+        }
     } else {
         Write-Host "[!] Windows Package Manager (winget) was not found on this PC." -ForegroundColor Yellow
-        Write-Host "    Please install these two free apps manually, then return here:"
+        Write-Host "    Please install these free apps manually, then return here:"
         Write-Host "      1. Obsidian:           https://obsidian.md"
         Write-Host "      2. Google Antigravity: https://antigravity.google"
+        Write-Host "      3. Granola (meetings): https://www.granola.ai"
         Read-Host "Press Enter once installed (or to continue creating the vault now)"
     }
 }
@@ -159,6 +168,19 @@ Copy-Item -Path (Join-Path $VaultPath "AGENTS.md") -Destination (Join-Path $glob
 Copy-Item -Path (Join-Path $vaultSkills "*") -Destination $workspaceSkills -Recurse -Force
 Copy-Item -Path (Join-Path $vaultSkills "*") -Destination $globalSkills -Recurse -Force
 Write-Host "[+] Linked AGENTS.md and all skills into workspace and Antigravity." -ForegroundColor Green
+
+# Download official Granola Meetings Simple Sync plugin (free Granola MCP sync)
+$granolaDir = Join-Path $VaultPath ".obsidian\plugins\granola-meetings-simple-sync"
+New-Item -ItemType Directory -Force -Path $granolaDir | Out-Null
+$granolaBase = "https://github.com/philfreo/obsidian-granola-plugin/releases/latest/download"
+try {
+    foreach ($asset in @("manifest.json", "main.js")) {
+        Invoke-WebRequest -Uri "$granolaBase/$asset" -OutFile (Join-Path $granolaDir $asset) -UseBasicParsing
+    }
+    Write-Host "[+] Installed official Granola Meetings Simple Sync plugin (pre-configured for 00_Inbox\Granola)." -ForegroundColor Green
+} catch {
+    Write-Host "[i] Inside Obsidian: Settings > Community Plugins > Browse > install 'Granola Meetings Simple Sync'." -ForegroundColor Yellow
+}
 
 # Auto-register vault in Obsidian's obsidian.json
 try {
