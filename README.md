@@ -14,6 +14,7 @@ During installation, you can pick either kit (and you can always upgrade from Co
 | :--- | :---: | :---: |
 | **Obsidian PARA Vault** (`Inbox`, `Projects`, `Areas`, `Resources`, `Archive`) | Yes | Yes |
 | **Granola Meeting Notes & Sync** (Free plan, zero-dependency `granola_sync.py` -> `00_Inbox/Granola/`) | **Yes** | **Yes** |
+| **Built-In Free Auto-Sync** (Apple iCloud for Mac/iOS, Syncthing + `.stignore` for Android/Windows, `SYNC_GUIDE.md`) | **Yes** | **Yes** |
 | **Persistent AI Memory** (`06_Metadata/Gemini/` + `Brain_Cockpit.md`) | Yes | Yes |
 | **5-Minute AI Setup Interview** (`/onboard`) | Yes | Yes |
 | **12 Everyday Skills** (Morning Plan, Daily Review, Action Extractor, Task Breakdown, Inbox, De-AI, etc.) | Yes | Yes |

@@ -1,0 +1,14 @@
+// Calm Slate Syncthing Ignore Rules
+// Prevents layout conflicts, mobile storage bloat, and secret leakage across devices.
+
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.trash
+.DS_Store
+Thumbs.db
+.git
+*.env
+**/__pycache__
+*.pyc
+06_Metadata/Gemini/Debug-Logs
+06_Metadata/Gemini/Backups
