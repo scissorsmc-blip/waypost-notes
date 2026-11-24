@@ -169,19 +169,6 @@ Copy-Item -Path (Join-Path $vaultSkills "*") -Destination $workspaceSkills -Recu
 Copy-Item -Path (Join-Path $vaultSkills "*") -Destination $globalSkills -Recurse -Force
 Write-Host "[+] Linked AGENTS.md and all skills into workspace and Antigravity." -ForegroundColor Green
 
-# Download official Granola Meetings Simple Sync plugin (free Granola MCP sync)
-$granolaDir = Join-Path $VaultPath ".obsidian\plugins\granola-meetings-simple-sync"
-New-Item -ItemType Directory -Force -Path $granolaDir | Out-Null
-$granolaBase = "https://github.com/philfreo/obsidian-granola-plugin/releases/latest/download"
-try {
-    foreach ($asset in @("manifest.json", "main.js")) {
-        Invoke-WebRequest -Uri "$granolaBase/$asset" -OutFile (Join-Path $granolaDir $asset) -UseBasicParsing
-    }
-    Write-Host "[+] Installed official Granola Meetings Simple Sync plugin (pre-configured for 00_Inbox\Granola)." -ForegroundColor Green
-} catch {
-    Write-Host "[i] Inside Obsidian: Settings > Community Plugins > Browse > install 'Granola Meetings Simple Sync'." -ForegroundColor Yellow
-}
-
 # Auto-register vault in Obsidian's obsidian.json
 try {
     $obsDir = Join-Path $env:APPDATA "obsidian"

@@ -13,7 +13,7 @@ During installation, you can pick either kit (and you can always upgrade from Co
 | Feature | Core Kit *(Recommended for Beginners)* | Full Kit *(Power-Up Bundle)* |
 | :--- | :---: | :---: |
 | **Obsidian PARA Vault** (`Inbox`, `Projects`, `Areas`, `Resources`, `Archive`) | Yes | Yes |
-| **Granola Meeting Notes & Sync** (Free plan, Obsidian plugin + `granola_sync.py` -> `00_Inbox/Granola/`) | **Yes** | **Yes** |
+| **Granola Meeting Notes & Sync** (Free plan, zero-dependency `granola_sync.py` -> `00_Inbox/Granola/`) | **Yes** | **Yes** |
 | **Persistent AI Memory** (`06_Metadata/Gemini/` + `Brain_Cockpit.md`) | Yes | Yes |
 | **5-Minute AI Setup Interview** (`/onboard`) | Yes | Yes |
 | **12 Everyday Skills** (Morning Plan, Daily Review, Action Extractor, Task Breakdown, Inbox, De-AI, etc.) | Yes | Yes |
@@ -56,9 +56,9 @@ Prefer not to run any terminal commands (or using a locked-down work PC)? You ca
    * Unzip the download.
    * Move the **`core-kit`** folder into your **OneDrive**, **iCloud**, or **Documents** folder and rename it **`CalmSlate`**.
    * *(Optional Full Kit)*: Copy everything inside `full-kit-addons/` into that same `CalmSlate` folder.
-3. Open **Obsidian** -> **Open folder as vault** -> pick `CalmSlate`:
-   * Go to **Settings > Community Plugins** -> **Turn on community plugins** -> **Browse** -> install & enable **`Granola Meetings Simple Sync`** (your pre-configured template and `00_Inbox/Granola` folder load automatically) -> click **Sign In with Granola**.
+3. Open **Obsidian** -> **Open folder as vault** -> pick `CalmSlate`.
 4. Open **Google Antigravity** -> **Open Folder** -> pick `CalmSlate`.
+5. Run `python "03_Resources/Automation & Scripts/granola_sync.py" --auth` once (uses Python standard library only) so your Granola meetings sync straight into `00_Inbox/Granola/`.
 
 Because `.agents/rules/AGENTS.md` and `.agents/skills/` live inside the vault, Antigravity automatically loads your rules and skills the moment you open the folder.
 

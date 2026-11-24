@@ -32,7 +32,7 @@ Pulls your daily schedule (including Zoom/Teams/Meet links) into `/morning-plan`
      ```
 
 ### 2. Granola Meeting Notes Sync *(Already Included in Core Kit!)*
-Both the **Granola Meetings Simple Sync** Obsidian plugin and the zero-dependency `03_Resources/Automation & Scripts/granola_sync.py` script are included right in the Core Kit so `00_Inbox/Granola/` is always your source of truth.
+The zero-dependency `03_Resources/Automation & Scripts/granola_sync.py` script is included right in the Core Kit so `00_Inbox/Granola/` is always your single source of truth across every platform (no Obsidian plugin needed).
 * **CLI / Mobile Auth (1 minute)**:
   ```bash
   python "03_Resources/Automation & Scripts/granola_sync.py" --auth

@@ -15,10 +15,13 @@ You have everything installed and linked together. Your notes live locally in **
 ## Your First 2 Steps (5 Minutes)
 
 ### Step 1: Connect Free Granola Meeting Sync (1 Minute)
-[Granola](https://www.granola.ai) captures clean meeting summaries (free plan supported, zero meeting bots joining your calls) so Obsidian (`00_Inbox/Granola/`) stays your single source of truth:
+[Granola](https://www.granola.ai) captures clean meeting summaries (free plan supported, zero meeting bots joining your calls) so Obsidian (`00_Inbox/Granola/`) stays your single source of truth across Windows, Mac, Linux, and Android:
 1. Install **Granola** (if not installed already) and sign in.
-2. **Desktop Obsidian Plugin (Automatic every 15 mins)**: Open Obsidian **Settings > Community Plugins** -> **Turn on community plugins** -> confirm **Granola Meetings Simple Sync** is **ON** -> open its settings and click **Connect / Sign In with Granola**.
-3. **Cross-Platform / CLI / Mobile Backup (`granola_sync.py`, zero extra packages)**: Also included right in `03_Resources/Automation & Scripts/granola_sync.py`. Run `python "03_Resources/Automation & Scripts/granola_sync.py" --auth` once, then sync and link into today's Daily Note anytime with `--link-daily`.
+2. Run the zero-dependency sync script included in your vault once to sign in:
+   ```bash
+   python "03_Resources/Automation & Scripts/granola_sync.py" --auth
+   ```
+3. Sync and link meetings into today's Daily Note anytime with `--link-daily` (or let `/morning-plan` and `/daily-review` run it for you). No Obsidian plugin required.
 
 ### Step 2: Run Your 5-Minute Setup Interview
 1. Open **Google Antigravity** and make sure this vault folder is selected as your workspace.
