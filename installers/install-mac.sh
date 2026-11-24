@@ -11,7 +11,7 @@ KIT="${KIT:-}"
 SYNC_MODE="${SYNC_MODE:-}"
 VAULT_PATH="${VAULT_PATH:-}"
 REPO_OWNER="${REPO_OWNER:-scissorsmc-blip}"
-REPO_NAME="${REPO_NAME:-calm-slate}"
+REPO_NAME="${REPO_NAME:-waypost-notes}"
 BRANCH="${BRANCH:-main}"
 SKIP_APP_INSTALL="${SKIP_APP_INSTALL:-0}"
 
@@ -43,7 +43,7 @@ copy_folder_safe() {
   )
 }
 
-header "Calm Slate - macOS Setup"
+header "Waypost Notes - macOS Setup"
 echo "This installer sets up Obsidian + Google Antigravity + Granola with a"
 echo "ready-to-use vault, persistent AI memory (06_Metadata/Gemini), and easy sync."
 echo ""
@@ -67,7 +67,7 @@ echo "[+] Selected: $(echo "$KIT" | tr '[:lower:]' '[:upper:]') KIT"
 # 2. Choose Cross-Device Sync Mode (Simple & TBI-Friendly)
 if [ -z "$SYNC_MODE" ]; then
   echo ""
-  echo "How will you sync Calm Slate with other devices?"
+  echo "How will you sync Waypost Notes with other devices?"
   echo "  [1] Mac + iPhone / iPad (Recommended for Apple - Free built-in iCloud Drive)"
   echo "  [2] Mac + Android or Windows (Recommended for Android - Free Syncthing, 1 QR scan)"
   echo "  [3] Mac Only (Local Documents folder - no sync)"
@@ -87,16 +87,16 @@ if [ -z "$VAULT_PATH" ]; then
   GENERIC_ICLOUD="$HOME/Library/Mobile Documents/com~apple~CloudDocs"
   if [ "$SYNC_MODE" = "icloud" ]; then
     if [ -d "$OBSIDIAN_ICLOUD" ] || [ -d "$GENERIC_ICLOUD" ]; then
-      DEFAULT_VAULT="$OBSIDIAN_ICLOUD/CalmSlate"
+      DEFAULT_VAULT="$OBSIDIAN_ICLOUD/WaypostNotes"
     else
       echo "[i] iCloud Drive folder not detected on this Mac yet; falling back to Documents."
-      DEFAULT_VAULT="$HOME/Documents/CalmSlate"
+      DEFAULT_VAULT="$HOME/Documents/WaypostNotes"
     fi
   else
-    DEFAULT_VAULT="$HOME/Documents/CalmSlate"
+    DEFAULT_VAULT="$HOME/Documents/WaypostNotes"
   fi
   echo ""
-  echo "Where should your Calm Slate vault folder be created?"
+  echo "Where should your Waypost Notes vault folder be created?"
   echo "  Recommended: $DEFAULT_VAULT"
   read -rp "Press Enter to accept recommended location, or paste another path: " custom_path
   if [ -n "$custom_path" ]; then
@@ -143,15 +143,15 @@ TEMP_ROOT=""
 
 if [ -f "$LOCAL_REPO_ROOT/core-kit/AGENTS.md" ]; then
   SOURCE_ROOT="$LOCAL_REPO_ROOT"
-  echo "[+] Using local Calm Slate files from: $SOURCE_ROOT"
+  echo "[+] Using local Waypost Notes files from: $SOURCE_ROOT"
 else
   TEMP_ROOT="$(mktemp -d)"
   ZIP_URL="https://github.com/$REPO_OWNER/$REPO_NAME/archive/refs/heads/$BRANCH.zip"
-  echo "[*] Downloading Calm Slate from $ZIP_URL ..."
+  echo "[*] Downloading Waypost Notes from $ZIP_URL ..."
   curl -fsSL "$ZIP_URL" -o "$TEMP_ROOT/kit.zip"
   unzip -q "$TEMP_ROOT/kit.zip" -d "$TEMP_ROOT"
   SOURCE_ROOT="$(find "$TEMP_ROOT" -mindepth 1 -maxdepth 1 -type d | head -n 1)"
-  echo "[+] Downloaded and unpacked Calm Slate."
+  echo "[+] Downloaded and unpacked Waypost Notes."
 fi
 
 # 6. Build Vault (Core Kit + optional Full Kit overlay)
@@ -208,8 +208,8 @@ if [ "$SYNC_MODE" = "syncthing" ]; then
     brew services start syncthing >/dev/null 2>&1 || true
     sleep 3
     if command -v syncthing >/dev/null 2>&1; then
-      syncthing cli config folders add --id calm-slate --label "Calm Slate" --path "$VAULT_PATH" >/dev/null 2>&1 || true
-      echo "[+] Syncthing running in background with Calm Slate folder registered (.stignore active)."
+      syncthing cli config folders add --id waypost-notes --label "Waypost Notes" --path "$VAULT_PATH" >/dev/null 2>&1 || true
+      echo "[+] Syncthing running in background with Waypost Notes folder registered (.stignore active)."
       echo "    Open http://127.0.0.1:8384 -> Actions > Show ID to scan QR code from Android Syncthing-Fork."
       command -v open >/dev/null 2>&1 && open "http://127.0.0.1:8384" >/dev/null 2>&1 || true
     fi
@@ -238,7 +238,7 @@ fi
 
 [ -n "$TEMP_ROOT" ] && rm -rf "$TEMP_ROOT"
 
-header "All Done! Calm Slate Is Ready"
+header "All Done! Waypost Notes Is Ready"
 echo "Vault Location: $VAULT_PATH"
 echo ""
 echo "Your Next Steps (5 Minutes):"

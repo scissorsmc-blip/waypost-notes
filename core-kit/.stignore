@@ -1,4 +1,4 @@
-// Calm Slate Syncthing Ignore Rules
+// Waypost Notes Syncthing Ignore Rules
 // Prevents layout conflicts, mobile storage bloat, and secret leakage across devices.
 
 .obsidian/workspace.json

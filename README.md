@@ -1,4 +1,4 @@
-# Calm Slate (Obsidian + Google Antigravity)
+# Waypost Notes (Obsidian + Google Antigravity)
 
 > **New to Obsidian or AI tools?** Start with the plain-English **[Beginner's Start-to-Finish Guide](BEGINNER_GUIDE.md)** (includes important privacy warnings and step-by-step checklists).
 
@@ -35,7 +35,7 @@ During installation, you can pick either kit (and you can always upgrade from Co
 2. Copy and paste this line, then press **Enter**:
 
 ```powershell
-irm https://raw.githubusercontent.com/scissorsmc-blip/calm-slate/main/installers/install-windows.ps1 | iex
+irm https://raw.githubusercontent.com/scissorsmc-blip/waypost-notes/main/installers/install-windows.ps1 | iex
 ```
 
 The installer will ask whether you want the **Core Kit** or **Full Kit**, install **Obsidian** and **Google Antigravity**, create your vault (in OneDrive or Documents), and link everything together automatically.
@@ -45,7 +45,7 @@ The installer will ask whether you want the **Core Kit** or **Full Kit**, instal
 2. Copy and paste this line, then press **Enter**:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/scissorsmc-blip/calm-slate/main/installers/install-mac.sh | bash
+curl -fsSL https://raw.githubusercontent.com/scissorsmc-blip/waypost-notes/main/installers/install-mac.sh | bash
 ```
 
 ---
@@ -57,10 +57,10 @@ Prefer not to run any terminal commands (or using a locked-down work PC)? You ca
 1. Download and install **[Obsidian](https://obsidian.md)** (free), **[Google Antigravity](https://antigravity.google)**, and **[Granola](https://www.granola.ai)** (free AI meeting notepad).
 2. On this GitHub page, click the green **`<> Code`** button -> **Download ZIP**:
    * Unzip the download.
-   * Move the **`core-kit`** folder into your **OneDrive**, **iCloud**, or **Documents** folder and rename it **`CalmSlate`**.
-   * *(Optional Full Kit)*: Copy everything inside `full-kit-addons/` into that same `CalmSlate` folder.
-3. Open **Obsidian** -> **Open folder as vault** -> pick `CalmSlate`.
-4. Open **Google Antigravity** -> **Open Folder** -> pick `CalmSlate`.
+   * Move the **`core-kit`** folder into your **OneDrive**, **iCloud**, or **Documents** folder and rename it **`WaypostNotes`**.
+   * *(Optional Full Kit)*: Copy everything inside `full-kit-addons/` into that same `WaypostNotes` folder.
+3. Open **Obsidian** -> **Open folder as vault** -> pick `WaypostNotes`.
+4. Open **Google Antigravity** -> **Open Folder** -> pick `WaypostNotes`.
 5. Run `python "03_Resources/Automation & Scripts/granola_sync.py" --auth` once (uses Python standard library only) so your Granola meetings sync straight into `00_Inbox/Granola/`.
 
 Because `.agents/rules/AGENTS.md` and `.agents/skills/` live inside the vault, Antigravity automatically loads your rules and skills the moment you open the folder.
@@ -69,7 +69,7 @@ Because `.agents/rules/AGENTS.md` and `.agents/skills/` live inside the vault, A
 
 ## Your First 5 Minutes After Install
 
-1. Open **Google Antigravity** pointed at your new **`CalmSlate`** folder.
+1. Open **Google Antigravity** pointed at your new **`WaypostNotes`** folder.
 2. Type this into the chat box and press Enter:
 
 ```text

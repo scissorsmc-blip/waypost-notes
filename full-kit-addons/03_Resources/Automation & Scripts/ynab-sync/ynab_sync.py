@@ -30,7 +30,7 @@ def _resolve_vault_root() -> str:
     if os.path.exists(os.path.join(home_vault, "06_Metadata", "Gemini")):
         return os.path.realpath(home_vault)
     # 3. Environment variable fallback
-    env_vault = os.environ.get("CALM_SLATE_VAULT") or os.environ.get("VAULT_DIR")
+    env_vault = os.environ.get("WAYPOST_VAULT") or os.environ.get("VAULT_DIR")
     if env_vault and os.path.exists(os.path.join(env_vault, "06_Metadata", "Gemini")):
         return os.path.abspath(env_vault)
     return script_vault

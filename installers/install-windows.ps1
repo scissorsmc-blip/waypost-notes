@@ -17,7 +17,7 @@ param(
     [string]$SyncMode = "",
     [string]$VaultPath = "",
     [string]$RepoOwner = "scissorsmc-blip",
-    [string]$RepoName = "calm-slate",
+    [string]$RepoName = "waypost-notes",
     [string]$Branch = "main",
     [switch]$SkipAppInstall
 )
@@ -48,7 +48,7 @@ function Copy-FolderSafe($Source, $Destination) {
     }
 }
 
-Write-Header "Calm Slate - Windows Setup"
+Write-Header "Waypost Notes - Windows Setup"
 Write-Host "This installer sets up Obsidian + Google Antigravity + Granola with a"
 Write-Host "ready-to-use vault, persistent AI memory (06_Metadata\Gemini), and easy sync."
 Write-Host ""
@@ -72,7 +72,7 @@ Write-Host "[+] Selected: $($Kit.ToUpper()) KIT" -ForegroundColor Green
 # 2. Choose Cross-Device Sync Mode
 if (-not $SyncMode) {
     Write-Host ""
-    Write-Host "How will you sync Calm Slate with other devices?" -ForegroundColor Yellow
+    Write-Host "How will you sync Waypost Notes with other devices?" -ForegroundColor Yellow
     Write-Host "  [1] Windows + Android Phone/Tablet (Recommended - Free Syncthing, 1 QR scan, zero zombie files)"
     Write-Host "  [2] Windows + OneDrive (Desktop / Cloud Backup, or FolderSync on Android)"
     Write-Host "  [3] This PC Only (Local Documents folder - no sync)"
@@ -89,14 +89,14 @@ Write-Host "[+] Sync mode: $SyncMode" -ForegroundColor Green
 # 3. Pick Vault Folder
 if (-not $VaultPath) {
     $defaultRoot = if ($SyncMode -eq "onedrive" -and $env:OneDrive -and (Test-Path $env:OneDrive)) {
-        Join-Path $env:OneDrive "Obsidian\CalmSlate"
+        Join-Path $env:OneDrive "Obsidian\WaypostNotes"
     } elseif ($SyncMode -eq "syncthing" -and $env:OneDrive -and (Test-Path $env:OneDrive)) {
-        Join-Path $env:OneDrive "Obsidian\CalmSlate"
+        Join-Path $env:OneDrive "Obsidian\WaypostNotes"
     } else {
-        Join-Path $env:USERPROFILE "Documents\CalmSlate"
+        Join-Path $env:USERPROFILE "Documents\WaypostNotes"
     }
     Write-Host ""
-    Write-Host "Where should your Calm Slate vault folder be created?" -ForegroundColor Yellow
+    Write-Host "Where should your Waypost Notes vault folder be created?" -ForegroundColor Yellow
     Write-Host "  Recommended: $defaultRoot"
     $custom = Read-Host "Press Enter to accept recommended location, or paste another path"
     $VaultPath = if ([string]::IsNullOrWhiteSpace($custom)) { $defaultRoot } else { $custom.Trim('"').Trim() }
@@ -141,18 +141,18 @@ $tempRoot = $null
 
 if ((Test-Path (Join-Path $localRepoRoot "core-kit\AGENTS.md"))) {
     $sourceRoot = $localRepoRoot
-    Write-Host "[+] Using local Calm Slate files from: $sourceRoot" -ForegroundColor Green
+    Write-Host "[+] Using local Waypost Notes files from: $sourceRoot" -ForegroundColor Green
 } else {
-    $tempRoot = Join-Path $env:TEMP ("calm-slate-kit-" + [guid]::NewGuid().ToString("N"))
+    $tempRoot = Join-Path $env:TEMP ("waypost-notes-kit-" + [guid]::NewGuid().ToString("N"))
     New-Item -ItemType Directory -Force -Path $tempRoot | Out-Null
     $zipPath = Join-Path $tempRoot "kit.zip"
     $zipUrl = "https://github.com/$RepoOwner/$RepoName/archive/refs/heads/$Branch.zip"
-    Write-Host "[*] Downloading Calm Slate from $zipUrl ..."
+    Write-Host "[*] Downloading Waypost Notes from $zipUrl ..."
     Invoke-WebRequest -Uri $zipUrl -OutFile $zipPath -UseBasicParsing
     Expand-Archive -Path $zipPath -DestinationPath $tempRoot -Force
     $extracted = Get-ChildItem -Path $tempRoot -Directory | Select-Object -First 1
     $sourceRoot = $extracted.FullName
-    Write-Host "[+] Downloaded and unpacked Calm Slate." -ForegroundColor Green
+    Write-Host "[+] Downloaded and unpacked Waypost Notes." -ForegroundColor Green
 }
 
 # 6. Build Vault (Core Kit + optional Full Kit overlay)
@@ -233,8 +233,8 @@ if ($SyncMode -eq "syncthing") {
 
             Start-Process -FilePath $stExe.Source -ArgumentList "--no-browser --no-console" -WindowStyle Hidden
             Start-Sleep -Seconds 3
-            & $stExe.Source cli config folders add --id calm-slate --label "Calm Slate" --path $VaultPath | Out-Null
-            Write-Host "[+] Syncthing running in background with Calm Slate folder registered (.stignore active)." -ForegroundColor Green
+            & $stExe.Source cli config folders add --id waypost-notes --label "Waypost Notes" --path $VaultPath | Out-Null
+            Write-Host "[+] Syncthing running in background with Waypost Notes folder registered (.stignore active)." -ForegroundColor Green
             Write-Host "    Opening http://127.0.0.1:8384 (Actions > Show ID -> scan QR code in Android Syncthing-Fork)." -ForegroundColor Cyan
             Start-Process "http://127.0.0.1:8384"
         } catch {
@@ -279,7 +279,7 @@ if ($tempRoot -and (Test-Path $tempRoot)) {
     Remove-Item -Path $tempRoot -Recurse -Force -ErrorAction SilentlyContinue
 }
 
-Write-Header "All Done! Calm Slate Is Ready"
+Write-Header "All Done! Waypost Notes Is Ready"
 Write-Host "Vault Location: $VaultPath" -ForegroundColor Green
 Write-Host ""
 Write-Host "Your Next Steps (5 Minutes):" -ForegroundColor Yellow

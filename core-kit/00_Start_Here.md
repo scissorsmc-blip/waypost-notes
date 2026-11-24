@@ -1,12 +1,12 @@
 ---
 type: welcome
-title: Start Here - Welcome to Calm Slate
+title: Start Here - Welcome to Waypost Notes
 tags:
   - start-here
   - onboarding
 ---
 
-# Welcome to Calm Slate
+# Welcome to Waypost Notes
 
 You have everything installed and linked together. Your notes live locally in **Obsidian**, and your AI assistant (**Google Antigravity**) reads your rules, remembers your context in `06_Metadata/Gemini/`, and helps you run your day without losing track of tasks or ideas.
 

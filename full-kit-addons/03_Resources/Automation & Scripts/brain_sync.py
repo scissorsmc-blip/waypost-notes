@@ -17,7 +17,7 @@ if hasattr(sys.stdout, "reconfigure"):
 
 
 def resolve_vault_root() -> Path:
-    env_vault = os.environ.get("CALM_SLATE_VAULT") or os.environ.get("VAULT_DIR")
+    env_vault = os.environ.get("WAYPOST_VAULT") or os.environ.get("VAULT_DIR")
     if env_vault and (Path(env_vault) / "06_Metadata" / "Gemini").exists():
         return Path(env_vault).resolve()
     script_vault = Path(__file__).resolve().parents[2]
@@ -27,7 +27,7 @@ def resolve_vault_root() -> Path:
     if (home_vault / "06_Metadata" / "Gemini").exists():
         return home_vault.resolve()
     raise FileNotFoundError(
-        "Unable to resolve Vault root. Run this script from inside your vault or set CALM_SLATE_VAULT."
+        "Unable to resolve Vault root. Run this script from inside your vault or set WAYPOST_VAULT."
     )
 
 

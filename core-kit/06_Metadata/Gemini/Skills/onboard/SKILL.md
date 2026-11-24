@@ -1,11 +1,11 @@
 ---
 name: onboard
-description: Friendly 5-minute interactive setup interview for new Calm Slate users. Personalizes AGENTS.md, creates life/work Areas, sets accessibility preferences, and launches the first Daily Note. Triggered by "/onboard" or "start my setup interview".
+description: Friendly 5-minute interactive setup interview for new Waypost Notes users. Personalizes AGENTS.md, creates life/work Areas, sets accessibility preferences, and launches the first Daily Note. Triggered by "/onboard" or "start my setup interview".
 ---
 
 # Vault Setup Interview (`/onboard`)
 
-Guide a brand-new user through personalizing their Calm Slate (Obsidian + Google Antigravity) vault in plain, warm, jargon-free English.
+Guide a brand-new user through personalizing their Waypost Notes (Obsidian + Google Antigravity) vault in plain, warm, jargon-free English.
 
 ## Interview Rules
 * Ask **one or two short questions at a time** so the user never feels overwhelmed.

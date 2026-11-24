@@ -10,14 +10,14 @@ tags:
 
 # Android Tablet & Phone Setup Guide (Optional Power-Up)
 
-Run your Calm Slate vault + Google Antigravity CLI (`agy`) on Android tablets and phones with one-tap home-screen widgets and Share Sheet capture.
+Run your Waypost Notes vault + Google Antigravity CLI (`agy`) on Android tablets and phones with one-tap home-screen widgets and Share Sheet capture.
 
 ---
 
 ## 1. Install Required Android Apps
 
 1. **Obsidian** (Google Play Store)
-2. **A Cloud Sync App** (Obsidian Sync, OneSync, or FolderSync) synced to a local folder such as `Internal Storage/Obsidian/CalmSlate`
+2. **A Cloud Sync App** (Obsidian Sync, OneSync, or FolderSync) synced to a local folder such as `Internal Storage/Obsidian/WaypostNotes`
 3. **Termux** (install from **F-Droid**, not Google Play)
 4. **Termux:Widget** (from F-Droid - adds one-tap home-screen shortcuts)
 5. *(Optional)* **Termux:API** (from F-Droid - enables Gallery media scanning and Android notifications)
@@ -30,12 +30,12 @@ Open **Termux** and run:
 
 ```bash
 termux-setup-storage
-ln -s ~/storage/shared/Obsidian/CalmSlate ~/vault
+ln -s ~/storage/shared/Obsidian/WaypostNotes ~/vault
 curl -fsSL https://antigravity.google/cli/install.sh | bash
 bash ~/vault/"03_Resources/Automation & Scripts/termux/install_termux_pack.sh"
 ```
 
-*(Adjust `~/storage/shared/Obsidian/CalmSlate` to match your synced vault folder path.)*
+*(Adjust `~/storage/shared/Obsidian/WaypostNotes` to match your synced vault folder path.)*
 
 ---
 

@@ -38,7 +38,7 @@ if hasattr(sys.stderr, "reconfigure"):
 
 
 def resolve_vault_root() -> Path:
-    env_vault = os.environ.get("CALM_SLATE_VAULT") or os.environ.get("VAULT_DIR")
+    env_vault = os.environ.get("WAYPOST_VAULT") or os.environ.get("VAULT_DIR")
     if env_vault and (Path(env_vault) / "06_Metadata" / "Gemini").exists():
         return Path(env_vault).resolve()
     script_vault = Path(__file__).resolve().parents[2]
@@ -124,7 +124,7 @@ def interactive_setup() -> None:
 def fetch_ics(url: str) -> bytes:
     req = urllib.request.Request(
         url,
-        headers={"User-Agent": "CalmSlateCalendarSync/1.0"},
+        headers={"User-Agent": "WaypostNotesCalendarSync/1.0"},
     )
     with urllib.request.urlopen(req, timeout=25) as resp:
         return resp.read()

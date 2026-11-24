@@ -10,12 +10,12 @@ SCRIPTS_DIR="$VAULT_DIR/03_Resources/Automation & Scripts"
 TERMUX_PACK="$SCRIPTS_DIR/termux"
 VENV_DIR="$HOME/.gemini/tools/.venv"
 
-echo "=== Calm Slate Termux Starter Pack Installer ==="
+echo "=== Waypost Notes Termux Starter Pack Installer ==="
 
 if [ ! -d "$VAULT_DIR/06_Metadata/Gemini" ]; then
   echo "ERROR: Vault not found at $VAULT_DIR."
   echo "Link your synced vault first, for example:"
-  echo "  termux-setup-storage && ln -s ~/storage/shared/Obsidian/CalmSlate ~/vault"
+  echo "  termux-setup-storage && ln -s ~/storage/shared/Obsidian/WaypostNotes ~/vault"
   exit 1
 fi
 

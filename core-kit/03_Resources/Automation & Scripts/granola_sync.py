@@ -55,7 +55,7 @@ def resolve_vault_root() -> Path:
     home_vault = Path.home() / "vault"
     if (home_vault / "06_Metadata" / "Gemini").exists():
         return home_vault.resolve()
-    env_vault = os.environ.get("CALM_SLATE_VAULT") or os.environ.get("VAULT_DIR")
+    env_vault = os.environ.get("WAYPOST_VAULT") or os.environ.get("VAULT_DIR")
     if env_vault and (Path(env_vault) / "06_Metadata" / "Gemini").exists():
         return Path(env_vault).resolve()
     return script_vault

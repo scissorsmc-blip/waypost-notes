@@ -20,7 +20,7 @@ Pick your device combination below and follow the 3 numbered steps once. After s
 
 Obsidian natively supports Apple iCloud Drive on Mac, iPhone, and iPad.
 
-1. **On your Mac**: Put your vault folder inside Obsidian's official iCloud folder *(the Calm Slate Mac installer does this automatically when you pick Option 1)*:
+1. **On your Mac**: Put your vault folder inside Obsidian's official iCloud folder *(the Waypost Notes Mac installer does this automatically when you pick Option 1)*:
    `~/Library/Mobile Documents/iCloud~md~obsidian/Documents/`
 2. **On your iPhone / iPad**: Install **Obsidian** from the App Store -> open Obsidian -> tap your synced vault (it appears automatically from iCloud).
 3. **Important Warning**: Do **not** use iCloud Drive if your primary computer is Windows (iCloud for Windows causes duplicate/conflicted vault files).
@@ -31,7 +31,7 @@ Obsidian natively supports Apple iCloud Drive on Mac, iPhone, and iPad.
 
 Uses **Syncthing** on your computer and **Syncthing-Fork** on Android. Notes sync directly device-to-device with encryption (never stored on third-party servers), deleted files stay deleted, and Obsidian never crashes.
 
-1. **On your Computer**: Choose **Syncthing** during the Calm Slate installer. It installs Syncthing, starts it silently in the background, applies the pre-built `.stignore` file, registers your vault folder, and opens `http://127.0.0.1:8384` (click **Actions > Show ID** for your QR code).
+1. **On your Computer**: Choose **Syncthing** during the Waypost Notes installer. It installs Syncthing, starts it silently in the background, applies the pre-built `.stignore` file, registers your vault folder, and opens `http://127.0.0.1:8384` (click **Actions > Show ID** for your QR code).
 2. **On your Android Phone / Tablet**:
    * Install free **Syncthing-Fork** (Google Play Store or F-Droid).
    * Open Syncthing-Fork -> **Devices** tab -> tap **`+`** -> scan the QR code on your computer screen -> tap **Save**.
