@@ -31,16 +31,15 @@ Pulls your daily schedule (including Zoom/Teams/Meet links) into `/morning-plan`
      python "03_Resources/Automation & Scripts/calendar_sync.py"
      ```
 
-### 2. Granola Meeting Notes Sync (Free Plan Supported)
-Automatically downloads your [Granola.ai](https://granola.ai) meeting summaries into `00_Inbox/Granola/` and links them into today's Daily Note. Works on Desktop and Android with no paid subscription required.
-
-* **Setup (1 minute)**:
+### 2. Granola Meeting Notes Sync *(Already Included in Core Kit!)*
+Both the **Granola Meetings Simple Sync** Obsidian plugin and the zero-dependency `03_Resources/Automation & Scripts/granola_sync.py` script are included right in the Core Kit so `00_Inbox/Granola/` is always your source of truth.
+* **CLI / Mobile Auth (1 minute)**:
   ```bash
-  python "03_Resources/Automation & Scripts/granola_sync.py" --login
+  python "03_Resources/Automation & Scripts/granola_sync.py" --auth
   ```
-  Approve sign-in in your browser, then sync anytime with:
+* **Sync & Link to Today's Daily Note**:
   ```bash
-  python "03_Resources/Automation & Scripts/granola_sync.py"
+  python "03_Resources/Automation & Scripts/granola_sync.py" --link-daily
   ```
 
 ### 3. Google Tasks Two-Way Sync (Phone Reminders <-> Obsidian)

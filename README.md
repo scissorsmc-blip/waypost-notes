@@ -13,14 +13,14 @@ During installation, you can pick either kit (and you can always upgrade from Co
 | Feature | Core Kit *(Recommended for Beginners)* | Full Kit *(Power-Up Bundle)* |
 | :--- | :---: | :---: |
 | **Obsidian PARA Vault** (`Inbox`, `Projects`, `Areas`, `Resources`, `Archive`) | Yes | Yes |
-| **Granola Meeting Notes & Auto-Sync Plugin** (Free plan, auto-syncs to `00_Inbox/Granola/`) | **Yes** | **Yes** |
+| **Granola Meeting Notes & Sync** (Free plan, Obsidian plugin + `granola_sync.py` -> `00_Inbox/Granola/`) | **Yes** | **Yes** |
 | **Persistent AI Memory** (`06_Metadata/Gemini/` + `Brain_Cockpit.md`) | Yes | Yes |
 | **5-Minute AI Setup Interview** (`/onboard`) | Yes | Yes |
 | **12 Everyday Skills** (Morning Plan, Daily Review, Action Extractor, Task Breakdown, Inbox, De-AI, etc.) | Yes | Yes |
 | **Calm Slate Low-Glare Dark Theme** (Anti-glare, cognitive-friendly) | Yes | Yes |
-| **Zero Python / Zero Paid Subscriptions Needed** | **Yes** | Optional Python venv |
+| **Zero Extra Python Packages / Zero Paid Subscriptions** | **Yes** | Optional Python venv |
 | **12 Extended Skills** (Premortem, Slide Decks, Financial Audit, Privacy, Study Coach, etc.) | - | **Yes** |
-| **Optional Sync Add-Ons** (Outlook/Google Calendar ICS, Android/CLI Granola Sync, Google Tasks, YNAB) | - | **Yes** |
+| **Optional Sync Add-Ons** (Outlook/Google Calendar ICS, Google Tasks, YNAB) | - | **Yes** |
 | **Android Tablet & Phone Pack + Wallpapers** (Termux widgets, Share Sheet, 5 matching wallpapers & theme guide) | - | **Yes** |
 
 ---
