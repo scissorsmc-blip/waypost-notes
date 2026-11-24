@@ -1,0 +1,124 @@
+/*
+ * Calm Slate & Warm Ink - Low-Glare Cognitive Dark Theme for Obsidian
+ * Engineered to eliminate harsh pure-black (#000000) OLED halation and pure-white (#FFFFFF) glare,
+ * improve heading hierarchy, and make open tasks easy to scan.
+ */
+
+.theme-dark {
+  /* Warm charcoal surfaces: avoids pure #000000 halation */
+  --background-primary: #191816;
+  --background-primary-alt: #201E1B;
+  --background-secondary: #151412;
+  --background-secondary-alt: #24221E;
+  --background-modifier-border: #2F2C27;
+  --background-modifier-hover: #282521;
+  --background-modifier-active-hover: #312D27;
+  --background-modifier-form-field: #201E1B;
+
+  /* Warm off-white ink: high readability without harsh glare */
+  --text-normal: #DDD8CE;
+  --text-muted: #A69F93;
+  --text-faint: #787268;
+  --text-on-accent: #191816;
+
+  /* Calm semantic accents */
+  --interactive-accent: #B88B72;
+  --interactive-accent-hover: #CAA088;
+  --text-accent: #CFA085;
+  --text-accent-hover: #E0B69D;
+  --link-color: #CFA085;
+  --link-color-hover: #E2BAA2;
+  --link-external-color: #8BB3C9;
+  --link-external-color-hover: #A5C8DB;
+
+  /* Distinct heading hierarchy for effortless scanning */
+  --h1-color: #E8C49A;
+  --h2-color: #8FBC9F;
+  --h3-color: #8BB3C9;
+  --h4-color: #C7A4B5;
+  --h5-color: #B5AFA4;
+  --h6-color: #9C968B;
+
+  --h1-size: 1.72em;
+  --h2-size: 1.38em;
+  --h3-size: 1.18em;
+
+  /* Comfortable reading rhythm */
+  --line-height-normal: 1.65;
+  --file-line-width: 46rem;
+  --p-spacing: 1.05em;
+
+  /* Checkboxes and task status clarity */
+  --checkbox-radius: 5px;
+  --checkbox-border-color: #D4A36A;
+  --checkbox-border-color-hover: #E5B982;
+  --checkbox-color: #8FBC9F;
+  --checkbox-color-hover: #A3CCA3;
+  --checklist-done-color: #7D776D;
+
+  /* Code, blockquotes, tables, and tags */
+  --code-background: #211F1C;
+  --code-normal: #D8C7AE;
+  --blockquote-border-color: #8FBC9F;
+  --blockquote-background-color: #201E1B;
+  --table-header-background: #23211D;
+  --table-row-alt-background: #1D1B18;
+  --tag-background: #282520;
+  --tag-color: #B9C8BE;
+  --tag-border-color: #3A362F;
+  --text-selection: rgba(207, 160, 133, 0.28);
+}
+
+.theme-dark strong,
+.theme-dark .cm-strong {
+  color: #F0ECE3;
+  font-weight: 650;
+}
+
+.theme-dark .markdown-preview-view h1,
+.theme-dark .cm-header-1 {
+  padding-bottom: 0.25em;
+  border-bottom: 1px solid #302D27;
+}
+
+.theme-dark .markdown-preview-view h2,
+.theme-dark .HyperMD-header-2 {
+  margin-top: 1.45em !important;
+  padding-bottom: 0.15em;
+  border-bottom: 1px solid rgba(143, 188, 159, 0.22);
+}
+
+.theme-dark input[type="checkbox"].task-list-item-checkbox {
+  width: 1.15em;
+  height: 1.15em;
+  border-width: 1.75px;
+  vertical-align: middle;
+}
+
+.theme-dark li.task-list-item.is-checked,
+.theme-dark .HyperMD-task-line[data-task="x"] {
+  opacity: 0.62;
+}
+
+.theme-dark li.task-list-item[data-task=">"],
+.theme-dark .HyperMD-task-line[data-task=">"] {
+  color: #82939E;
+  opacity: 0.72;
+}
+
+.theme-dark .callout {
+  background-color: #211F1B;
+  border: 1px solid #312E28;
+  border-left-width: 3px;
+  border-radius: 8px;
+  padding: 12px 16px;
+}
+
+.theme-dark .cm-active {
+  background-color: rgba(221, 216, 206, 0.035);
+}
+
+.theme-dark hr {
+  border-color: #2E2B26;
+  margin: 1.5em 0;
+}

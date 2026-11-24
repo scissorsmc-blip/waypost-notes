@@ -1,0 +1,12 @@
+# Local secrets and personal OAuth tokens (NEVER commit)
+*.env
+.env
+credentials.json
+token.json
+auth.json
+gtasks_state.json
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
