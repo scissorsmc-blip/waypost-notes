@@ -1,16 +1,19 @@
 <#
 .SYNOPSIS
-    Calm Slate - Guided Windows Installer (Core Kit & Full Kit + Auto-Sync)
+    Waypost Notes - Unified Guided Windows Installer (Copilot & Antigravity Editions)
 
 .DESCRIPTION
-    Installs Obsidian, Google Antigravity, and Granola, optionally configures free
-    Syncthing device-to-device sync (zero zombie files), creates your PARA + AI
-    Memory vault (06_Metadata/Gemini/), registers the vault inside Obsidian, and
-    links all rules and skills automatically.
+    Sets up Waypost Notes on Windows with your choice of edition:
+      - Copilot Edition (Single App: Obsidian + Copilot plugin for Gemini or any supported AI)
+      - Antigravity Edition (Obsidian + Google Antigravity desktop workspace)
+    Installs apps, configures optional free Syncthing device sync, builds your PARA + AI
+    Memory vault (06_Metadata\Gemini\), and registers the vault inside Obsidian.
 #>
 
 [CmdletBinding()]
 param(
+    [ValidateSet("", "copilot", "antigravity")]
+    [string]$Edition = "",
     [ValidateSet("", "core", "full")]
     [string]$Kit = "",
     [ValidateSet("", "syncthing", "onedrive", "local")]
@@ -23,6 +26,11 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+
+if (-not $Edition -and $env:WAYPOST_EDITION) {
+    $Edition = $env:WAYPOST_EDITION.Trim().ToLower()
+    $env:WAYPOST_EDITION = $null
+}
 
 function Write-Header($Text) {
     Write-Host ""
@@ -49,27 +57,44 @@ function Copy-FolderSafe($Source, $Destination) {
 }
 
 Write-Header "Waypost Notes - Windows Setup"
-Write-Host "This installer sets up Obsidian + Google Antigravity + Granola with a"
-Write-Host "ready-to-use vault, persistent AI memory (06_Metadata\Gemini), and easy sync."
+Write-Host "Local-first Obsidian PARA vault with persistent AI memory (06_Metadata\Gemini),"
+Write-Host "free Granola meeting sync, Calm Slate dark theme, and automatic device sync."
 Write-Host ""
 
-# 1. Choose Core Kit vs Full Kit
+# 1. Choose Edition (Copilot vs Antigravity)
+if (-not $Edition) {
+    Write-Host "Choose your Waypost Notes edition:" -ForegroundColor Yellow
+    Write-Host "  [1] Copilot Edition (Recommended for Beginners & Mobile)"
+    Write-Host "      - Everything inside ONE app: Obsidian + Copilot plugin (free Gemini default,"
+    Write-Host "        or any Copilot-compatible AI: OpenAI, Claude, Groq, OpenRouter, Ollama)."
+    Write-Host ""
+    Write-Host "  [2] Antigravity Edition (Desktop Power Workspace)"
+    Write-Host "      - Pairs Obsidian (zero plugins required) with Google Antigravity desktop/CLI."
+    Write-Host ""
+    $echoice = Read-Host "Enter 1 for Copilot Edition or 2 for Antigravity Edition [Default: 1]"
+    if ($echoice -eq "2") { $Edition = "antigravity" } else { $Edition = "copilot" }
+}
+$editionLabel = if ($Edition -eq "copilot") { "Copilot Edition (Single App)" } else { "Antigravity Edition" }
+Write-Host "[+] Selected Edition: $editionLabel" -ForegroundColor Green
+
+# 2. Choose Core Kit vs Full Kit
 if (-not $Kit) {
+    Write-Host ""
     Write-Host "Choose which kit to install:" -ForegroundColor Yellow
     Write-Host "  [1] Core Kit (Recommended for Beginners)"
-    Write-Host "      - Obsidian + Google Antigravity + Granola sync script + PARA vault"
-    Write-Host "      - AI memory + 12 everyday skills + Calm Slate dark theme."
+    Write-Host "      - PARA vault, persistent AI memory, Granola sync script, Calm Slate dark theme,"
+    Write-Host "        and 12 everyday /commands."
     Write-Host ""
     Write-Host "  [2] Full Kit (Power-Up Bundle)"
-    Write-Host "      - Everything in Core Kit PLUS 12 extended skills, 5 Calm Slate wallpapers,"
+    Write-Host "      - Everything in Core Kit PLUS 12 extended /commands, 5 Calm Slate wallpapers,"
     Write-Host "        Android theme guide, and optional Calendar/Google Tasks/YNAB sync."
     Write-Host ""
     $choice = Read-Host "Enter 1 for Core Kit or 2 for Full Kit [Default: 1]"
     if ($choice -eq "2") { $Kit = "full" } else { $Kit = "core" }
 }
-Write-Host "[+] Selected: $($Kit.ToUpper()) KIT" -ForegroundColor Green
+Write-Host "[+] Selected Kit: $($Kit.ToUpper()) KIT" -ForegroundColor Green
 
-# 2. Choose Cross-Device Sync Mode
+# 3. Choose Cross-Device Sync Mode
 if (-not $SyncMode) {
     Write-Host ""
     Write-Host "How will you sync Waypost Notes with other devices?" -ForegroundColor Yellow
@@ -86,14 +111,13 @@ if (-not $SyncMode) {
 }
 Write-Host "[+] Sync mode: $SyncMode" -ForegroundColor Green
 
-# 3. Pick Vault Folder
+# 4. Pick Vault Folder
+$defaultFolderName = if ($Edition -eq "copilot") { "WaypostNotesCopilot" } else { "WaypostNotes" }
 if (-not $VaultPath) {
-    $defaultRoot = if ($SyncMode -eq "onedrive" -and $env:OneDrive -and (Test-Path $env:OneDrive)) {
-        Join-Path $env:OneDrive "Obsidian\WaypostNotes"
-    } elseif ($SyncMode -eq "syncthing" -and $env:OneDrive -and (Test-Path $env:OneDrive)) {
-        Join-Path $env:OneDrive "Obsidian\WaypostNotes"
+    $defaultRoot = if (($SyncMode -eq "onedrive" -or $SyncMode -eq "syncthing") -and $env:OneDrive -and (Test-Path $env:OneDrive)) {
+        Join-Path $env:OneDrive "Obsidian\$defaultFolderName"
     } else {
-        Join-Path $env:USERPROFILE "Documents\WaypostNotes"
+        Join-Path $env:USERPROFILE "Documents\$defaultFolderName"
     }
     Write-Host ""
     Write-Host "Where should your Waypost Notes vault folder be created?" -ForegroundColor Yellow
@@ -103,18 +127,25 @@ if (-not $VaultPath) {
 }
 Write-Host "[+] Vault folder: $VaultPath" -ForegroundColor Green
 
-# 4. Install Obsidian, Google Antigravity & Granola via winget
+# 5. Install Apps via winget
 if (-not $SkipAppInstall) {
-    Write-Header "Step 1 of 4: Installing Obsidian, Antigravity & Granola"
+    $stepTitle = if ($Edition -eq "copilot") {
+        "Step 1 of 4: Installing Obsidian & Granola"
+    } else {
+        "Step 1 of 4: Installing Obsidian, Antigravity & Granola"
+    }
+    Write-Header $stepTitle
     $winget = Get-Command winget -ErrorAction SilentlyContinue
     if ($winget) {
         Write-Host "[*] Checking/installing Obsidian..."
         winget install --id Obsidian.Obsidian -e --accept-source-agreements --accept-package-agreements --silent | Out-Null
         Write-Host "[+] Obsidian ready." -ForegroundColor Green
 
-        Write-Host "[*] Checking/installing Google Antigravity..."
-        winget install --id Google.Antigravity -e --accept-source-agreements --accept-package-agreements --silent | Out-Null
-        Write-Host "[+] Google Antigravity ready." -ForegroundColor Green
+        if ($Edition -eq "antigravity") {
+            Write-Host "[*] Checking/installing Google Antigravity..."
+            winget install --id Google.Antigravity -e --accept-source-agreements --accept-package-agreements --silent | Out-Null
+            Write-Host "[+] Google Antigravity ready." -ForegroundColor Green
+        }
 
         Write-Host "[*] Checking/installing Granola (AI meeting notepad)..."
         try {
@@ -127,19 +158,23 @@ if (-not $SkipAppInstall) {
         Write-Host "[!] Windows Package Manager (winget) was not found on this PC." -ForegroundColor Yellow
         Write-Host "    Please install these free apps manually, then return here:"
         Write-Host "      1. Obsidian:           https://obsidian.md"
-        Write-Host "      2. Google Antigravity: https://antigravity.google"
-        Write-Host "      3. Granola (meetings): https://www.granola.ai"
+        if ($Edition -eq "antigravity") {
+            Write-Host "      2. Google Antigravity: https://antigravity.google"
+            Write-Host "      3. Granola (meetings): https://www.granola.ai"
+        } else {
+            Write-Host "      2. Granola (meetings): https://www.granola.ai"
+        }
         Read-Host "Press Enter once installed (or to continue creating the vault now)"
     }
 }
 
-# 5. Locate local repo files or download from GitHub
-Write-Header "Step 2 of 4: Preparing Starter Vault Files"
+# 6. Locate local repo files or download from GitHub
+Write-Header "Step 2 of 4: Preparing Waypost Notes Files"
 $scriptDir = if ($PSScriptRoot) { $PSScriptRoot } else { (Get-Location).Path }
 $localRepoRoot = Split-Path -Parent $scriptDir
 $tempRoot = $null
 
-if ((Test-Path (Join-Path $localRepoRoot "core-kit\AGENTS.md"))) {
+if ((Test-Path (Join-Path $localRepoRoot "core-kit\SYNC_GUIDE.md")) -and (Test-Path (Join-Path $localRepoRoot "editions\$Edition\core-kit\AGENTS.md"))) {
     $sourceRoot = $localRepoRoot
     Write-Host "[+] Using local Waypost Notes files from: $sourceRoot" -ForegroundColor Green
 } else {
@@ -155,31 +190,51 @@ if ((Test-Path (Join-Path $localRepoRoot "core-kit\AGENTS.md"))) {
     Write-Host "[+] Downloaded and unpacked Waypost Notes." -ForegroundColor Green
 }
 
-# 6. Build Vault (Core Kit + optional Full Kit overlay)
+# 7. Build Vault (Shared Core + Edition Overlay + optional Full Kit)
 New-Item -ItemType Directory -Force -Path $VaultPath | Out-Null
 Copy-FolderSafe (Join-Path $sourceRoot "core-kit") $VaultPath
+Copy-FolderSafe (Join-Path $sourceRoot "editions\$Edition\core-kit") $VaultPath
 Write-Host "[+] Installed Core Kit vault structure, templates, dark theme, Granola sync, and 12 core skills." -ForegroundColor Green
 
 if ($Kit -eq "full") {
     Copy-FolderSafe (Join-Path $sourceRoot "full-kit-addons") $VaultPath
-    Write-Host "[+] Installed Full Kit add-ons (sync scripts, 5 wallpapers, theme guide, and 12 extended skills)." -ForegroundColor Green
+    Copy-FolderSafe (Join-Path $sourceRoot "editions\$Edition\full-kit-addons") $VaultPath
+    Write-Host "[+] Installed Full Kit add-ons (12 extended skills, 5 wallpapers, theme guide, and sync scripts)." -ForegroundColor Green
 }
 
-# 7. Mirror rules/skills + register Obsidian vault + auto-setup Syncthing
-Write-Header "Step 3 of 4: Linking Vault Rules, Skills, Obsidian & Sync"
-$vaultSkills = Join-Path $VaultPath "06_Metadata\Gemini\Skills"
-$workspaceSkills = Join-Path $VaultPath ".agents\skills"
-$workspaceRules = Join-Path $VaultPath ".agents\rules"
-$globalPlugin = Join-Path $env:USERPROFILE ".gemini\config\plugins\user-profile"
-$globalRules = Join-Path $globalPlugin "rules"
-$globalSkills = Join-Path $globalPlugin "skills"
+# 8. Edition-Specific Wiring + Register Obsidian Vault + Auto-Sync
+Write-Header "Step 3 of 4: Wiring Edition, Registering Vault & Sync"
 
-New-Item -ItemType Directory -Force -Path $workspaceSkills, $workspaceRules, $globalRules, $globalSkills | Out-Null
-Copy-Item -Path (Join-Path $VaultPath "AGENTS.md") -Destination (Join-Path $workspaceRules "AGENTS.md") -Force
-Copy-Item -Path (Join-Path $VaultPath "AGENTS.md") -Destination (Join-Path $globalRules "AGENTS.md") -Force
-Copy-Item -Path (Join-Path $vaultSkills "*") -Destination $workspaceSkills -Recurse -Force
-Copy-Item -Path (Join-Path $vaultSkills "*") -Destination $globalSkills -Recurse -Force
-Write-Host "[+] Linked AGENTS.md and all skills into workspace and Antigravity." -ForegroundColor Green
+if ($Edition -eq "copilot") {
+    $copilotDir = Join-Path $VaultPath ".obsidian\plugins\copilot"
+    New-Item -ItemType Directory -Force -Path $copilotDir | Out-Null
+    $copilotReleaseBase = "https://github.com/logancyang/obsidian-copilot/releases/latest/download"
+    try {
+        foreach ($asset in @("manifest.json", "main.js", "styles.css")) {
+            $destAsset = Join-Path $copilotDir $asset
+            Write-Host "[*] Downloading Copilot plugin asset: $asset ..."
+            Invoke-WebRequest -Uri "$copilotReleaseBase/$asset" -OutFile $destAsset -UseBasicParsing
+        }
+        Write-Host "[+] Installed latest official Obsidian Copilot plugin (pre-configured for Google Gemini)." -ForegroundColor Green
+    } catch {
+        Write-Host "[i] Could not auto-download Copilot plugin assets right now." -ForegroundColor Yellow
+        Write-Host "    Inside Obsidian: Settings > Community Plugins > Browse > search 'Copilot' > Install & Enable."
+    }
+} else {
+    $vaultSkills = Join-Path $VaultPath "06_Metadata\Gemini\Skills"
+    $workspaceSkills = Join-Path $VaultPath ".agents\skills"
+    $workspaceRules = Join-Path $VaultPath ".agents\rules"
+    $globalPlugin = Join-Path $env:USERPROFILE ".gemini\config\plugins\user-profile"
+    $globalRules = Join-Path $globalPlugin "rules"
+    $globalSkills = Join-Path $globalPlugin "skills"
+
+    New-Item -ItemType Directory -Force -Path $workspaceSkills, $workspaceRules, $globalRules, $globalSkills | Out-Null
+    Copy-Item -Path (Join-Path $VaultPath "AGENTS.md") -Destination (Join-Path $workspaceRules "AGENTS.md") -Force
+    Copy-Item -Path (Join-Path $VaultPath "AGENTS.md") -Destination (Join-Path $globalRules "AGENTS.md") -Force
+    Copy-Item -Path (Join-Path $vaultSkills "*") -Destination $workspaceSkills -Recurse -Force
+    Copy-Item -Path (Join-Path $vaultSkills "*") -Destination $globalSkills -Recurse -Force
+    Write-Host "[+] Linked AGENTS.md and all skills into workspace and Google Antigravity." -ForegroundColor Green
+}
 
 # Auto-register vault in Obsidian's obsidian.json
 try {
@@ -223,7 +278,6 @@ if ($SyncMode -eq "syncthing") {
     $stExe = Get-Command syncthing -ErrorAction SilentlyContinue
     if ($stExe) {
         try {
-            # Add startup shortcut so Syncthing runs silently after every reboot
             $startupLnk = Join-Path $env:APPDATA "Microsoft\Windows\Start Menu\Programs\Startup\Syncthing.lnk"
             $wsh = New-Object -ComObject WScript.Shell
             $sc = $wsh.CreateShortcut($startupLnk)
@@ -233,8 +287,10 @@ if ($SyncMode -eq "syncthing") {
 
             Start-Process -FilePath $stExe.Source -ArgumentList "--no-browser --no-console" -WindowStyle Hidden
             Start-Sleep -Seconds 3
-            & $stExe.Source cli config folders add --id waypost-notes --label "Waypost Notes" --path $VaultPath | Out-Null
-            Write-Host "[+] Syncthing running in background with Waypost Notes folder registered (.stignore active)." -ForegroundColor Green
+            $stId = if ($Edition -eq "copilot") { "waypost-notes-copilot" } else { "waypost-notes" }
+            $stLabel = if ($Edition -eq "copilot") { "Waypost Notes Copilot" } else { "Waypost Notes" }
+            & $stExe.Source cli config folders add --id $stId --label $stLabel --path $VaultPath | Out-Null
+            Write-Host "[+] Syncthing running in background with $stLabel folder registered (.stignore active)." -ForegroundColor Green
             Write-Host "    Opening http://127.0.0.1:8384 (Actions > Show ID -> scan QR code in Android Syncthing-Fork)." -ForegroundColor Cyan
             Start-Process "http://127.0.0.1:8384"
         } catch {
@@ -247,7 +303,7 @@ if ($SyncMode -eq "syncthing") {
     Write-Host "[i] Tip: Right-click '$VaultPath' in File Explorer -> 'Always keep on this device'. See SYNC_GUIDE.md." -ForegroundColor Yellow
 }
 
-# 8. Optional Python venv setup for Full Kit
+# 9. Optional Python venv setup for Full Kit
 if ($Kit -eq "full") {
     Write-Header "Step 4 of 4: Setting Up Optional Python Tools (Full Kit)"
     $py = Get-Command python -ErrorAction SilentlyContinue
@@ -270,8 +326,7 @@ if ($Kit -eq "full") {
         & $venvPy (Join-Path $VaultPath "03_Resources\Automation & Scripts\brain_sync.py")
         Write-Host "[+] Full Kit Python environment ready." -ForegroundColor Green
     } else {
-        Write-Host "[i] Python was not detected yet. Restart your terminal later and run:" -ForegroundColor Yellow
-        Write-Host "    pip install -r `"$VaultPath\03_Resources\Automation & Scripts\requirements.txt`""
+        Write-Host "[i] Python was not detected yet. You can still use Waypost Notes right away without Python." -ForegroundColor Yellow
     }
 }
 
@@ -279,15 +334,25 @@ if ($tempRoot -and (Test-Path $tempRoot)) {
     Remove-Item -Path $tempRoot -Recurse -Force -ErrorAction SilentlyContinue
 }
 
-Write-Header "All Done! Waypost Notes Is Ready"
+Write-Header "All Done! Waypost Notes ($editionLabel) Is Ready"
 Write-Host "Vault Location: $VaultPath" -ForegroundColor Green
 Write-Host ""
-Write-Host "Your Next Steps (5 Minutes):" -ForegroundColor Yellow
-Write-Host "  1. Connect free Granola meeting sync (1-time browser sign-in):"
-Write-Host "     python `"$VaultPath\03_Resources\Automation & Scripts\granola_sync.py`" --auth"
-Write-Host "  2. Open Google Antigravity -> Open Folder -> $VaultPath -> type: /onboard" -ForegroundColor Cyan
-Write-Host "  3. Open Obsidian anytime to view 00_Start_Here.md and SYNC_GUIDE.md."
+Write-Host "Your Next Quick Steps (5 Minutes):" -ForegroundColor Yellow
+if ($Edition -eq "copilot") {
+    Write-Host "  1. Get a free Google Gemini API key at: https://aistudio.google.com/apikey"
+    Write-Host "     (Or connect any AI provider supported by Obsidian Copilot.)"
+    Write-Host "  2. Open Obsidian -> Settings > Community Plugins (Turn On) -> Settings > Copilot >"
+    Write-Host "     Providers > Google Gemini -> paste your API key and pick a Gemini model."
+    Write-Host "  3. Connect free Granola meeting sync (1-time sign-in):"
+    Write-Host "     python `"$VaultPath\03_Resources\Automation & Scripts\granola_sync.py`" --auth"
+    Write-Host "  4. Open the Copilot chat sidebar and type: /onboard (and see SYNC_GUIDE.md)." -ForegroundColor Cyan
+} else {
+    Write-Host "  1. Connect free Granola meeting sync (1-time browser sign-in):"
+    Write-Host "     python `"$VaultPath\03_Resources\Automation & Scripts\granola_sync.py`" --auth"
+    Write-Host "  2. Open Google Antigravity -> Open Folder -> $VaultPath -> type: /onboard" -ForegroundColor Cyan
+    Write-Host "  3. Open Obsidian anytime to view 00_Start_Here.md and SYNC_GUIDE.md."
+}
 if ($Kit -eq "full") {
-    Write-Host "  4. Full Kit Guide: Open FULL_KIT_GUIDE.md whenever you want optional add-ons."
+    Write-Host "  Full Kit Guide: Open FULL_KIT_GUIDE.md whenever you want optional add-ons."
 }
 Write-Host ""

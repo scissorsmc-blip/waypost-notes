@@ -1,0 +1,58 @@
+{
+  "isPaidUser": false,
+  "isPlusUser": false,
+  "googleApiKey": "",
+  "openAIApiKey": "",
+  "anthropicApiKey": "",
+  "defaultChainType": "llm_chain",
+  "contextTurns": 15,
+  "stream": true,
+  "copilotFolder": "06_Metadata/Gemini",
+  "defaultSaveFolder": "06_Metadata/Gemini/Agent-Sessions",
+  "defaultConversationTag": "copilot-conversation",
+  "autosaveChat": true,
+  "autoAttachActiveNote": true,
+  "defaultOpenArea": "view",
+  "defaultSendShortcut": "enter",
+  "customPromptsFolder": "06_Metadata/Gemini/Prompts",
+  "userSystemPromptsFolder": "06_Metadata/Gemini/System-Prompts",
+  "defaultSystemPromptTitle": "Waypost Operating Rules",
+  "memoryFolderName": "06_Metadata/Gemini/Memory",
+  "projectsFolder": "01_Projects",
+  "qaExclusions": "04_Archive,06_Metadata/Gemini/Backups,06_Metadata/Gemini/Debug-Logs",
+  "qaInclusions": "",
+  "debug": false,
+  "maxSourceChunks": 30,
+  "enableInlineCitations": true,
+  "promptSortStrategy": "alphabetical",
+  "chatHistorySortStrategy": "recent",
+  "defaultConversationNoteName": "{$date} - {$topic}",
+  "enableAutonomousAgent": true,
+  "enableCustomPromptTemplating": true,
+  "enableRecentConversations": true,
+  "maxRecentConversations": 30,
+  "enableSavedMemory": true,
+  "quickCommandIncludeNoteContext": true,
+  "autoAcceptEdits": false,
+  "diffViewMode": "split",
+  "autoCompactThreshold": 128000,
+  "agentMode": {
+    "skills": {
+      "folder": "06_Metadata/Gemini/Skills"
+    }
+  },
+  "providers": {
+    "google-gemini-default": {
+      "providerType": "google",
+      "displayName": "Google Gemini",
+      "baseUrl": "https://generativelanguage.googleapis.com",
+      "enableCors": false,
+      "origin": {
+        "kind": "byok",
+        "catalogProviderId": "google"
+      },
+      "providerId": "google-gemini-default"
+    }
+  },
+  "settingsVersion": 16
+}
